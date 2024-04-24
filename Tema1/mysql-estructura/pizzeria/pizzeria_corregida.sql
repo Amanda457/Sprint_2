@@ -52,12 +52,9 @@ CREATE TABLE IF NOT EXISTS comanda (
    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY ,
    data_hora DATETIME NOT NULL,
    modalitat ENUM ('repartiment a domicili', 'recollida a botiga') NOT NULL,
-   id_producte INT(11) UNSIGNED NOT NULL,
-   quantitat SMALLINT(60)  NOT NULL,
    preu_total DECIMAL(4,2) NOT NULL,
    id_client INT (11) UNSIGNED NOT NULL,
    id_botiga INT (11) UNSIGNED NOT NULL,
-   FOREIGN KEY (id_producte) REFERENCES productes(id),
    FOREIGN KEY (id_client) REFERENCES client(id),
    FOREIGN KEY (id_botiga) REFERENCES botiga(id)
   )
@@ -86,6 +83,17 @@ FOREIGN KEY (id_comanda) REFERENCES comanda(id),
 FOREIGN KEY (id_repartidor) REFERENCES empleat(id)
 ) 
 ENGINE = InnoDB 
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE IF NOT EXISTS comanda_has_productes (
+  id INT(11) NOT NULL,
+  comanda_id INT(11) UNSIGNED NOT NULL,
+  productes_id INT(11) NOT NULL,
+  PRIMARY KEY (id, comanda_id, productes_id),
+  FOREIGN KEY (productes_id) REFERENCES productes (id),
+  FOREIGN KEY (comanda_id) REFERENCES comanda (id)
+)
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 
