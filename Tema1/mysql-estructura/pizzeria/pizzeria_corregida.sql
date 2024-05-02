@@ -88,7 +88,8 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE IF NOT EXISTS comanda_has_productes (
   id INT(11) NOT NULL,
   comanda_id INT(11) UNSIGNED NOT NULL,
-  productes_id INT(11) NOT NULL,
+  productes_id INT(11) UNSIGNED NOT NULL,
+  quantity INT (3) NOT NULL, 
   PRIMARY KEY (id, comanda_id, productes_id),
   FOREIGN KEY (productes_id) REFERENCES productes (id),
   FOREIGN KEY (comanda_id) REFERENCES comanda (id)
